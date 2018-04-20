@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head><title>Verbs</title></head>
+	<body>
+		<ul>
+			<li th:each="verb : ${verbs}" th:text="${verb.infinitive}"></li>
+		</ul>
+	</body>
+</html>
