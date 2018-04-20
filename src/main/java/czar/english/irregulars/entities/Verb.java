@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Verb implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -19,18 +19,24 @@ public class Verb implements Serializable {
 	@GeneratedValue
 	@Column
 	private Long id;
-	
+
 	@Column
 	private String infinitive;
-	
+
 	@Column
 	private String past;
-	
+
 	@Column
 	private String participle;
-	
+
 	@Column
 	private String spanish;
+
+	@Column
+	private String spanishPast;
+
+	@Column
+	private String spanishParticiple;
 
 	public Long getId() {
 		return id;
@@ -70,5 +76,21 @@ public class Verb implements Serializable {
 
 	public void setSpanish(String spanish) {
 		this.spanish = spanish;
+	}
+
+	public String getSpanishPast() {
+		return spanish;
+	}
+
+	public void setSpanishPast(String spanishPast) {
+		this.spanishPast = spanishPast;
+	}
+
+	public String getSpanishParticiple() {
+		return spanishParticiple;
+	}
+
+	public void setSpanishParticiple(String spanishParticiple) {
+		this.spanishParticiple = spanishParticiple;
 	}
 }
