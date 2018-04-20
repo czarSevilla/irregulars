@@ -29,8 +29,8 @@ public class VerbController {
 	private static final String INFINITIVE = "infinitive";
 	private static final String PAST = "past";
 	private static final String PARTICIPLE = "participle";
-	private static final String SPANISH = "spanish";
-	
+	private static final String TRASLATION = "traslation";
+
 	@Autowired
 	VerbRepository verbRepository;
 
@@ -39,7 +39,7 @@ public class VerbController {
 
 	@Autowired
 	AttemptRepository attemptRepository;
-	
+
 	@RequestMapping(value = "/")
 	public String main(Model model) {
 		List<Verb> verbs = verbRepository.findAll();
@@ -64,16 +64,16 @@ public class VerbController {
 	public String postInit(Model model, Quiz quiz) {
 
 		quizRepository.save(quiz);
-		
+
 		Attempt attempt = getAttempt();
 		attempt.setQuiz(quiz);
 		attemptRepository.save(attempt);
-		
+
 		model.addAttribute("attempt", attempt);
 
 		return "verbs/attempt";
 	}
-	
+
 	@RequestMapping(value = "/verbs/attempt", method = POST)
 	public String postAttempt(Model model, Attempt attempt) {
 		Attempt dbAttempt = attemptRepository.findOne(attempt.getId());
@@ -83,28 +83,28 @@ public class VerbController {
 		model.addAttribute("attempt", dbAttempt);
 		return "verbs/answer";
 	}
-	
+
 	@RequestMapping(value = "/verbs/next", method = POST)
 	public String nextAttempt(Model model, Attempt attempt) {
-		
+
 		Quiz quiz = quizRepository.getOne(attempt.getQuiz().getId());
-		
+
 		int currentAttempts = attemptRepository.countByQuiz(quiz);
-		
+
 		if (currentAttempts < quiz.getLevel()) {
 			attempt = getAttempt();
 			attempt.setQuiz(quiz);
 			attemptRepository.save(attempt);
-			
+
 			model.addAttribute("attempt", attempt);
-			
+
 			return "verbs/attempt";
 		} else {
 			model.addAttribute("total", quiz.getLevel());
 			int corrects = attemptRepository.countByQuizAndCorrect(quiz, true);
 			model.addAttribute("corrects", corrects);
 			return "verbs/finish";
-		}		
+		}
 	}
 
 	private Attempt getAttempt() {
@@ -125,28 +125,28 @@ public class VerbController {
 		} while (topic == base);
 
 		Set<Verb> someVerbs = randomVerbs(verbs, verbIdx, random);
-		
+
 		buildBase(attempt, verbs.get(verbIdx), base);
-		
+
 		buildTopics(attempt, someVerbs, verbs.get(verbIdx), topic, random);
 
 		return attempt;
 	}
-	
-	
+
+
 	private Set<Verb> randomVerbs(List<Verb> verbs, int verbIdx, Random random) {
 		Set<Verb> someVerbs = new HashSet<>();
-		
+
 		do {
 			int idx = random.nextInt(verbs.size());
 			if (idx != verbIdx) {
 				someVerbs.add(verbs.get(idx));
 			}
 		} while (someVerbs.size() < 4);
-		
+
 		return someVerbs;
 	}
-	
+
 	private void buildBase(Attempt attempt, Verb verb, int base) {
 		switch (base) {
 		case 1:
@@ -162,18 +162,18 @@ public class VerbController {
 			attempt.setBase(verb.getParticiple());
 			break;
 		case 4:
-			attempt.setBaseType(SPANISH);
+			attempt.setBaseType(TRASLATION);
 			attempt.setBase(verb.getSpanish());
 			break;
 		}
 	}
-	
+
 	private void buildTopics(Attempt attempt, Set<Verb> someVerbs, Verb verb, int topic, Random random) {
 		List<String> options = new ArrayList<>();
 		for (Verb currentVerb : someVerbs) {
 			options.add(buildOption(currentVerb, topic));
 		}
-		
+
 		switch(topic) {
 		case 1:
 			attempt.setTopicType(INFINITIVE);
@@ -191,12 +191,12 @@ public class VerbController {
 			options.add(verb.getParticiple());
 			break;
 		case 4:
-			attempt.setTopicType(SPANISH);
+			attempt.setTopicType(TRASLATION);
 			attempt.setTopic(verb.getSpanish());
 			options.add(verb.getSpanish());
 			break;
 		}
-		
+
 		Collections.shuffle(options);
 		int idx = 0;
 		attempt.setOptionA(options.get(idx++));
@@ -205,7 +205,7 @@ public class VerbController {
 		attempt.setOptionD(options.get(idx++));
 		attempt.setOptionE(options.get(idx++));
 	}
-	
+
 	private String buildOption(Verb verb, int topic) {
 		switch (topic) {
 		case 1: return verb.getInfinitive();
