@@ -79,7 +79,7 @@ public class Verb implements Serializable {
 	}
 
 	public String getSpanishPast() {
-		return spanish;
+		return spanishPast;
 	}
 
 	public void setSpanishPast(String spanishPast) {
