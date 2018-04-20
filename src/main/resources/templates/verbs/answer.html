@@ -13,6 +13,13 @@ body {
 	background-color: #eee;
 }
 .topic {padding:0.5em; border-radius:0.5em; background-color:#337ab7; color:white;}
+.p-bar-1{width: 0;}
+.p-bar-2{width: 100;}
+.p-delay{height: 60px;float:left;bottom: 0;position:fixed;}
+.green-hard{background-color: #1c1;}
+.green-soft{background-color: #6c6;}
+.red-hard{background-color: #c11;}
+.red-soft{background-color: #c66;}
 </style>
 </head>
 <body>
@@ -40,7 +47,7 @@ body {
 				</div>
 			</div>
 		</nav>
-		
+
 		<div th:class="${attempt.correct ? 'panel panel-success' : 'panel panel-danger'}">
 			<div class="panel-heading" th:if="${attempt.correct}">It is correct!!</div>
 			<div class="panel-heading" th:unless="${attempt.correct}">It is wrong!! The correct anwser is <span class="topic" th:text="${attempt.topic}"></span></div>
@@ -52,13 +59,17 @@ body {
 				<div class="h4">Which <span th:text="${attempt.topicType}" class="topic"></span> is correct for <span th:text="${attempt.base}" class="topic"></span></div>
 			</div></div>
 			<br/>
-			
-<button type="submit" class="btn btn-primary">Next</button>
+
+<button id="btn-next" type="submit" class="btn btn-primary">Next</button>
 		</form>
 			</div>
 		</div>
+		<input type="hidden" id="timer" th:value="${attempt.correct ? '1000' : '2000'}" />
+		<div th:if="${attempt.correct}" class="p-bar-1 p-delay green-hard"></div>
+		<div th:if="${not attempt.correct}" class="p-bar-1 p-delay red-hard"></div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script>$(function(){var timer = $('#timer').val(); $( ".p-bar-1" ).animate({width: '100%'}, {duration:parseInt(timer), complete:function(){$('#btn-next').click()}});});</script>
 </body>
 </html>
