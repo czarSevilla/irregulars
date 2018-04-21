@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: common_header"></head>
+
+<body>
+	<div class="container-fluid" id="mainContainer">
+		<nav th:replace="base :: common_nav"></nav>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form method="POST" th:action="@{/quiz/init}">
+					<div class="form-group">
+						<label for="level">Level</label> <select id="level" name="level"
+							th:value="${quiz.level}" class="form-control">
+							<option value="10">Basic (10)</option>
+							<option value="20">Moderate (20)</option>
+							<option value="50">Intermediate (50)</option>
+							<option value="100">Advanced (100)</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">Start</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="base :: common_footer"></footer>
+</body>
+</html>

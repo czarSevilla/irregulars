@@ -1,9 +1,35 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	<head><title>Verbs</title></head>
-	<body>
-		<ul>
-			<li th:each="verb : ${verbs}" th:text="${verb.infinitive}"></li>
-		</ul>
-	</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: common_header"></head>
+
+<body>
+	<div class="container-fluid" id="mainContainer">
+		<nav th:replace="base :: common_nav"></nav>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<table class="table table-striped">
+					<tr class="info">
+						<th>Infinitive</th>
+						<th>Simple Past</th>
+						<th>Past Participle</th>
+						<th>Spanish</th>
+					</tr>
+					<tr th:each="verb : ${verbs}">
+						<td th:text="${verb.infinitive}"></td>
+						<td th:text="${verb.past}"></td>
+						<td th:text="${verb.participle}"></td>
+						<td th:text="${verb.spanish}"></td>
+					</tr>
+				</table>
+
+
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="base :: common_footer"></footer>
+</body>
 </html>
