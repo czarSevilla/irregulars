@@ -83,7 +83,7 @@ insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_pa
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('sit','sat','sat','Sentarse', 'Sentó', 'Sentado');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('sleep','slept','slept','Dormir', 'Durmió', 'Dormido');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('slide','slid','slid','Deslizar / Resbalar', 'Deslizó / Resbaló', 'Deslizado / Resbalado');
-insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('smell','smelled / smelt','smelled / smelt','Oler');
+insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('smell','smelled / smelt','smelled / smelt','Oler', 'Olió', 'Olido');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('sneak','sneaked / snuck','sneaked / snuck','Entrar o Salir a hurtadillas', 'Entró o Salió a hurtadillas', 'Entrado o Salido a hurtadillas');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('speak','spoke','spoken','Hablar', 'Habló', 'Hablado');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('speed','sped / speeded','sped / speeded','Apurarse', 'Apuró', 'Apurado');
@@ -103,7 +103,7 @@ insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_pa
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('sweep','swept','swept','Barrer', 'Barrió', 'Barrido');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('swim','swam','swum','Nadar', 'Nadó', 'Nadado');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('swing','swung','swung','Balancear / Oscilar', 'Balanceó / Oscilo', 'Balaceado / Oscilado');
-insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('take','took','taken','Tomar', 'Tomado');
+insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('take','took','taken','Tomar', 'Tomó', 'Tomado');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('teach','taught','taught','Enseñar', 'Enseño', 'Enseñado');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('tear','tore','torn','Rasgar', 'Rasgó', 'Rasgado');
 insert into verb(infinitive, past, participle, spanish, spanish_past, spanish_participle) values('tell','told','told','Decir', 'Dijo', 'Dejado');

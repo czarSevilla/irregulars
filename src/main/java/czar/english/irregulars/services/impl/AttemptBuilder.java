@@ -13,12 +13,25 @@ import czar.english.irregulars.entities.Verb;
 
 public class AttemptBuilder {
 	
-	private static final String INFINITIVE = "infinitive";
-	private static final String PAST = "past";
-	private static final String PARTICIPLE = "participle";
-	private static final String TRASLATION = "traslation";
-
+	private AttemptBuilder() {
+		// Constructor private
+	}
+	
+	public static final String INFINITIVE = "infinitive";
+	public static final String PAST = "past";
+	public static final String PARTICIPLE = "participle";
+	public static final String TRASLATION = "traslation";
+	
 	public static Attempt build(List<Verb> verbs) {
+		
+		if (verbs == null) {
+			throw new IllegalArgumentException("Verbs list is null");
+		}
+		
+		if (verbs.size() < 4) {
+			throw new IllegalArgumentException("4 Verbs are required");
+		}
+		
 		Attempt attempt = new Attempt();
 
 		Random random = new Random(new Date().getTime());
@@ -69,13 +82,15 @@ public class AttemptBuilder {
 			attempt.setBaseType(TRASLATION);
 			attempt.setBase(verb.getSpanish());
 			break;
+		default:
+			break;
 		}
 	}
 
 	public static void buildTopics(Attempt attempt, Set<Verb> someVerbs, Verb verb, int topic, Random random) {
 		List<String> options = new ArrayList<>();
 		for (Verb currentVerb : someVerbs) {
-			options.add(buildOption(currentVerb, topic));
+			options.add(buildOption(attempt.getBaseType(), currentVerb, topic));
 		}
 
 		switch(topic) {
@@ -96,8 +111,17 @@ public class AttemptBuilder {
 			break;
 		case 4:
 			attempt.setTopicType(TRASLATION);
-			attempt.setTopic(verb.getSpanish());
-			options.add(verb.getSpanish());
+			if (INFINITIVE.equals(attempt.getBaseType())) {
+				attempt.setTopic(verb.getSpanish());
+				options.add(verb.getSpanish());
+			} else if (PAST.equals(attempt.getBaseType())) {
+				attempt.setTopic(verb.getSpanishPast());
+				options.add(verb.getSpanishPast());
+			} else if (PARTICIPLE.equals(attempt.getBaseType())) {
+				attempt.setTopic(verb.getSpanishParticiple());
+				options.add(verb.getSpanishParticiple());
+			} 
+		default:
 			break;
 		}
 
@@ -110,13 +134,22 @@ public class AttemptBuilder {
 		attempt.setOptionE(options.get(idx++));
 	}
 
-	public static String buildOption(Verb verb, int topic) {
+	public static String buildOption(String baseType, Verb verb, int topic) {
 		switch (topic) {
 		case 1: return verb.getInfinitive();
 		case 2: return verb.getPast();
 		case 3: return verb.getParticiple();
-		case 4: return verb.getSpanish();
+		case 4: 
+			if (INFINITIVE.equals(baseType)) {
+				return verb.getSpanish();
+			} else if (PAST.equals(baseType)) {
+				return verb.getSpanishPast();
+			} else if (PARTICIPLE.equals(baseType)) {
+				return verb.getSpanishParticiple();
+			} else {
+				return null;
+			}
+		default: return null;
 		}
-		return null;
 	}
 }

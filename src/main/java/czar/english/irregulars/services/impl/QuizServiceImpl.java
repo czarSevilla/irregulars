@@ -16,13 +16,13 @@ import czar.english.irregulars.services.QuizService;
 
 @Service("quizService")
 public class QuizServiceImpl implements QuizService {
-	
+
 	@Autowired
 	private AttemptRepository attemptRepository;
-	
+
 	@Autowired
 	private QuizRepository quizRepository;
-	
+
 	@Autowired
 	private VerbRepository verbRepository;
 
@@ -36,7 +36,7 @@ public class QuizServiceImpl implements QuizService {
 		attemptRepository.save(attempt);
 		return attempt;
 	}
-	
+
 	@Override
 	public Attempt processAttempt(Attempt attempt) {
 		Attempt dbAttempt = attemptRepository.findOne(attempt.getId());
@@ -45,7 +45,7 @@ public class QuizServiceImpl implements QuizService {
 		attemptRepository.save(dbAttempt);
 		return dbAttempt;
 	}
-	
+
 	@Override
 	public boolean isLast(Attempt attempt) {
 		Quiz quiz = quizRepository.getOne(attempt.getQuiz().getId());
@@ -65,7 +65,7 @@ public class QuizServiceImpl implements QuizService {
 
 	@Override
 	public Result getResult(Long idQuiz) {
-		Quiz quiz = new Quiz();
+		Quiz quiz = quizRepository.getOne(idQuiz);
 		quiz.setId(idQuiz);
 		int correct = attemptRepository.countByQuizAndCorrect(quiz, true);
 		int answers = quiz.getLevel();
@@ -73,5 +73,5 @@ public class QuizServiceImpl implements QuizService {
 		result.setCorrectAnswers(correct);
 		result.setTotalAnswers(answers);
 		return result;
-	}	
+	}
 }

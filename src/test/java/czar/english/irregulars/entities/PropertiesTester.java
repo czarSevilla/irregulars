@@ -70,6 +70,8 @@ public class PropertiesTester<T> {
 			return random.nextInt() % 2 == 0;
 		} else if (paramType.isAssignableFrom(boolean.class)) {
 			return random.nextInt() % 2 == 0;
+		} else if (paramType.isAssignableFrom(int.class)) {
+			return random.nextInt();
 		} else {
 			return paramType.newInstance();
 		}
